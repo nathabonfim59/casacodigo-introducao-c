@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define NUMERO_DE_TENTATIVAS 3 // Quanitdade de vezes que o usuário poderá jogar
-#define PONTUACAO_MAXIMA 1000;
+#define PONTUACAO_MAXIMA 1000; // Quantidade máxima de pontos disponíveis
 
 int main() {
     // Mostra a tela de boas-vindas
@@ -10,10 +11,14 @@ int main() {
     printf("* Bem-vindo ao jovo de Advinhação *\n");
     printf("***********************************\n");
 
-    int numeroSecreto = 42;    // Número que o usuário terá de advinhar
-    int chute;                 // Tentativa do jogador
-    int ganhou = 0;            // Verifica se o usuário acertou o número secreto
-    int tentativas = 1;        // Número atual de tentativas do usuário
+    int segundos = time(0);
+    srand(segundos);
+    int numeroAleatorio = rand();
+
+    int numeroSecreto = numeroAleatorio % 100;    // Número que o usuário terá de advinhar
+    int chute;                                    // Tentativa do jogador
+    int ganhou = 0;                               // Verifica se o usuário acertou o número secreto
+    int tentativas = 1;                           // Número atual de tentativas do usuário
     double pontos = PONTUACAO_MAXIMA;
 
     // Loop principal do jogo
@@ -34,6 +39,7 @@ int main() {
         
         if (ganhou) {
             printf("Parabéns, você acertou!\n");
+            printf("Você fez %.2f pontos", pontos);
             break;
         // Caso o usuário não acerte, mostra uma "dica" a ele
         } else if (maior) { 
@@ -49,10 +55,10 @@ int main() {
 
         if (NUMERO_DE_TENTATIVAS < tentativas) {
             printf("Você perdeu, que pena!\n");
+            printf("O número secreto era: %d\n", numeroSecreto);
             break;
         }
     }
 
-    printf("Você fez %.2f pontos", pontos);
     printf("Fim de jogo!\n");
 }
