@@ -8,30 +8,28 @@ int main() {
     printf("* Bem-vindo ao jovo de Advinhação *\n");
     printf("***********************************\n");
 
-    int numeroSecreto;    // Número que o usuário terá de advinhar
-    numeroSecreto = 42;
-
-    int chute;            // Tentativa do jogador
+    int numeroSecreto = 42;    // Número que o usuário terá de advinhar
+    int chute;                 // Tentativa do jogador
+    int ganhou = 0;            // Verifica se o usuário acertou o número secreto
+    int tentativas = 1;        // Número atual de tentativas do usuário
 
     // Loop principal do jogo
-    for (int i = 1; i <= NUMERO_DE_TENTATIVAS; i++) {
-        printf("==================================\n");
-
+    while (!ganhou) {
         printf("Qual seu chute?\n");
         scanf("%d", &chute);
-        printf("Seu %d chute foi: %d\n", i, chute);
+        printf("Seu %d chute foi: %d\n", tentativas, chute);
         printf("----------------------------------\n");
 
         if (chute < 0) {
             printf("Você não pode chutar números negativos\n");
-            i--;
+            tentativas--;
             continue;
         }
 
         int acertou = chute == numeroSecreto;
         int maior = chute > numeroSecreto;
         
-        if (acertou) {
+        if (ganhou) {
             printf("Parabéns, você acertou!\n");
             break;
         // Caso o usuário não acerte, mostra uma "dica" a ele
@@ -39,6 +37,13 @@ int main() {
             printf("O seu chute foi maior que o número secreto.\n");
         } else {
             printf("O seu chute foi menor que o número secreto\n");
+        }
+
+        tentativas++;
+
+        if (NUMERO_DE_TENTATIVAS < tentativas) {
+            printf("Você perdeu, que pena!\n");
+            break;
         }
     }
 
