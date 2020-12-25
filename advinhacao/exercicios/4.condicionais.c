@@ -1,17 +1,20 @@
 #include <stdio.h>
 
+#define NUMERO_DE_TENTATIVAS 3 // Quanitdade de vezes que o usuário poderá jogar
+
 int main() {
     // Mostra a tela de boas-vindas
     printf("***********************************\n");
     printf("* Bem-vindo ao jovo de Advinhação *\n");
     printf("***********************************\n");
 
-    int numeroSecreto;
+    int numeroSecreto;    // Número que o usuário terá de advinhar
     numeroSecreto = 42;
 
-    int chute;
+    int chute;            // Tentativa do jogador
 
-    for (int i = 1; i <= 3; i++) {
+    // Loop principal do jogo
+    for (int i = 1; i <= NUMERO_DE_TENTATIVAS; i++) {
         printf("==================================\n");
 
         printf("Qual seu chute?\n");
@@ -20,18 +23,16 @@ int main() {
         printf("----------------------------------\n");
 
         int acertou = chute == numeroSecreto;
+        int maior = chute > numeroSecreto;
         
         if (acertou) {
             printf("Parabéns, você acertou!\n");
             break;
+        // Caso o usuário não acerte, mostra uma "dica" a ele
+        } else if (maior) { 
+            printf("O seu chute foi maior que o número secreto.\n");
         } else {
-            
-            int maior = chute > numeroSecreto;
-            if (maior) {
-                printf("O seu chute foi maior que o número secreto.\n");
-            } else {
-                printf("O seu chute foi menor que o número secreto\n");
-            }
+            printf("O seu chute foi menor que o número secreto\n");
         }
     }
 
