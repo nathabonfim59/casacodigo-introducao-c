@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define NUMERO_DE_TENTATIVAS 3 // Quanitdade de vezes que o usuário poderá jogar
+#define PONTUACAO_MAXIMA 1000;
 
 int main() {
     // Mostra a tela de boas-vindas
@@ -12,6 +14,7 @@ int main() {
     int chute;                 // Tentativa do jogador
     int ganhou = 0;            // Verifica se o usuário acertou o número secreto
     int tentativas = 1;        // Número atual de tentativas do usuário
+    double pontos = PONTUACAO_MAXIMA;
 
     // Loop principal do jogo
     while (!ganhou) {
@@ -26,7 +29,7 @@ int main() {
             continue;
         }
 
-        int acertou = chute == numeroSecreto;
+        int ganhou = chute == numeroSecreto;
         int maior = chute > numeroSecreto;
         
         if (ganhou) {
@@ -39,6 +42,9 @@ int main() {
             printf("O seu chute foi menor que o número secreto\n");
         }
 
+        int pontosPerdidos = abs(chute - numeroSecreto) / 2.0;
+        pontos = pontos - pontosPerdidos;
+
         tentativas++;
 
         if (NUMERO_DE_TENTATIVAS < tentativas) {
@@ -47,5 +53,6 @@ int main() {
         }
     }
 
+    printf("Você fez %.2f pontos", pontos);
     printf("Fim de jogo!\n");
 }
